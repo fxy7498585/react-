@@ -5,19 +5,24 @@ import  '../css/content.css';
 export default class Content extends Component{
   constructor(){
     super();//调用基类的所有初始化方法
+    var aaa;
     this.state={
       userName:'bob',
-      age:24
+      age:24,
+      bbb:''
     };
   };
   change(event){
-    this.setState({userName:event.target.value})
+    // this.setState({userName:event.target.value})
+    this.state.bbb=event.target.value;
+    console.log(this.state.bbb);
+    // this.setState({age:age});
+
+  };
+  clickChange(age){
+    this.setState({age:this.state.bbb});
   };
   render(){
-    setTimeout(()=>{
-      // 更改state
-      this.setState({userName:'alla'});
-    },4000);
     return(
       <div className="content">
         <h2>this is content</h2>
@@ -26,7 +31,7 @@ export default class Content extends Component{
         <p>userName:{this.props.userName}</p>
         value:<input type="text" onChange={this.props.change}/>
         value:<input type="text" onChange={this.change.bind(this)}/>
-
+        <button onClick={this.clickChange.bind(this)}>提交1</button>
       </div>
     )
   }
