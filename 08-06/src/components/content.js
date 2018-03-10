@@ -3,6 +3,8 @@ import  '../css/content.css';
 import ContentChild from './contentChild.js';
 import propTypes from 'prop-types';
 // import ReactDom from 'react-dom';
+import ReactMixin from 'react-mixin';
+import MixinLog from './mixins.js';
 
 export default class Content extends Component{
   constructor(){
@@ -19,19 +21,24 @@ export default class Content extends Component{
   handleChildVlaue(event){
     this.setState({age:event.target.value});
   };
+  clickChange(){
+    // const mySubmit=document.getElementById('submitButton');
+    // console.log(mySubmit);
+    // ReactDom.findDOMNode(mySubmit).style.color="red";
+    console.log(this.refs.submitButton);
+    this.refs.submitButton.style.color="red";
+    MixinLog.log();
+  };
   render(){
     // setTimeout(()=>{
     //   // 更改state
     //   this.setState({userName:'alla'});
     // },4000);
     return(
-      <div className="content">
+      <div className="content" ref="submitButton2">
         <h2>this is content</h2>
-        <p>content--userName:{this.state.userName}<br/>content--age:{this.state.age}</p>
-        <p>{this.props.userid}</p>
-        <p>{this.props.userName}</p>
-        <input type="button" value="提交" onClick={this.changeUserInfo.bind(this)}/>
         <ContentChild handleChildVlaue={this.handleChildVlaue.bind(this)} {...this.props} id={4}/>
+        <input type="button" id="submitButton" ref="submitButton" value="button" onClick={this.clickChange.bind(this)}/>
       </div>
     )
   }
@@ -42,3 +49,4 @@ Content.propTypes={
 Content.defaultprops={
   userName:'这是一个默认值'
 };
+ReactMixin.onClass(Content,MixinLog);
